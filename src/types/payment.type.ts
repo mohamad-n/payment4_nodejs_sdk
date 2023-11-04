@@ -1,6 +1,6 @@
 import { Language } from "./language.enum";
 
-export interface CreatePaymentDto {
+export type CreatePaymentDto = {
   amount: number;
   callbackUrl: string;
   sandBox?: boolean;
@@ -8,26 +8,26 @@ export interface CreatePaymentDto {
   webhookParams?: object;
   callbackParams?: object;
   language?: string;
-}
-export interface PaymentRequestType {
+};
+export type PaymentRequestType = {
   amount: number;
   callbackParams?: object;
   webhookParams?: object;
   webhookUrl?: string;
-  language?: Language;
-}
-export interface RequestPaymentResponseType {
+  language?: string;
+};
+export type RequestPaymentResponseType = {
   id: number;
   refUrl: string;
-}
+};
 
-export interface VerifyPaymentRequest {
+export type VerifyPaymentRequest = {
   amount: number;
   paymentId: string;
-}
+};
 
-export interface VerifyResponseType {
+export type VerifyResponseType = {
   status: string;
   message: string;
   errorCode: number;
-}
+};
