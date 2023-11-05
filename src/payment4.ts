@@ -1,16 +1,16 @@
-import { IncomingMessage, RequestOptions, request } from "http";
-import { InitParamsType } from "./types/init.params.type";
+import { RequestOptions, request } from "https";
 import {
+  InitParamsType,
   CreatePaymentDto,
   PaymentRequestType,
+  RequestOption,
   VerifyPaymentRequest,
-} from "./types/payment.type";
-import { Language } from "./types/language.enum";
-import { RequestOption } from "./types/request.options.type";
+  Language,
+} from "./types";
 import { configs } from "./config";
 
 /**
- * payment4_nodejs_sdk • Simple typescript implementation of Payment4 nodjs api so you can use easily and fast.
+ * payment4_nodejs_sdk • Simple typescript implementation of Payment4 nod-js api so you can use easily and fast.
  * @author Ali Rajabi
  * @date . 12/08/2023
  */
@@ -21,16 +21,7 @@ export class Payment4 {
    * constructor for Payment4
    * @param  {InitParamsType} initParam
    */
-  private constructor(initParam: InitParamsType) {
-    this.initParam = initParam;
-  }
-
-  /**
-   * createInstance from Payment4
-   * @param  {InitParamsType} initParam
-   * @returns Payment4
-   */
-  static createInstance(initParam: InitParamsType): Payment4 {
+  constructor(initParam: InitParamsType) {
     const { apiKey, callbackUrl } = initParam;
     if (!apiKey) {
       throw new Error("\x1b[31m Payment4 : need to enter apiKey \x1b[0m");
@@ -38,7 +29,7 @@ export class Payment4 {
     if (!callbackUrl) {
       throw new Error("\x1b[31m Payment4 : need to enter callbackUrl \x1b[0m");
     }
-    return new Payment4(initParam);
+    this.initParam = initParam;
   }
 
   /**
@@ -51,6 +42,15 @@ export class Payment4 {
     const { amount, callbackParams, language, webhookParams, webhookUrl } =
       params;
     const { callbackUrl, sandBox } = this.initParam;
+
+    if (!amount) {
+      throw new Error("\x1b[31m Payment4 : amount is required \x1b[0m");
+    }
+
+    if (!Object.values(Language).includes(language as Language)) {
+      throw new Error("\x1b[31m Payment4 : Invalid language \x1b[0m");
+    }
+
     const data: CreatePaymentDto = {
       amount,
       callbackUrl,
@@ -101,21 +101,17 @@ export class Payment4 {
     return new Promise((resolve, reject) => {
       const { baseUrl } = configs;
       const { path, ...options } = requestOptions;
-      const requestR = request(
-        baseUrl + path,
-        options,
-        (response: IncomingMessage) => {
-          let responseData = "";
+      const requestR = request(baseUrl + path, options, (response) => {
+        let responseData = "";
 
-          response.on("data", (chunk) => {
-            responseData += chunk;
-          });
+        response.on("data", (chunk) => {
+          responseData += chunk;
+        });
 
-          response.on("end", () => {
-            resolve(responseData);
-          });
-        }
-      );
+        response.on("end", () => {
+          resolve(responseData);
+        });
+      });
 
       requestR.on("error", (error) => {
         reject(error);

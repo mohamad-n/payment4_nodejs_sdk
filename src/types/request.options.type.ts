@@ -1,4 +1,4 @@
-export interface RequestOption {
+export type RequestOption = {
   method: string;
   path: string;
-}
+};

@@ -1,3 +1,3 @@
 import { Payment4 } from "./payment4";
 
-export default Payment4;
+export { Payment4 };

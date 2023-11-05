@@ -1,8 +1,8 @@
 {
-  "name": "payment4_nodejs_sdk",
+  "name": "payment4",
   "version": "1.0.0",
   "description": "Simple typescript implementation of Payment4 nodjs api so you can use easily and fast.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "tsc"
   },
@@ -23,7 +23,6 @@
   "homepage": "https://github.com/aliraj313/payment4_nodjs_sdk#readme",
   "devDependencies": {
     "@types/node": "^20.8.9",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
 }
