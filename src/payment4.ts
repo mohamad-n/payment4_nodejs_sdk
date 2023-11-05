@@ -47,7 +47,7 @@ export class Payment4 {
       throw new Error("\x1b[31m Payment4 : amount is required \x1b[0m");
     }
 
-    if (!Object.values(Language).includes(language as Language)) {
+    if (language && !Object.values(Language).includes(language as Language)) {
       throw new Error("\x1b[31m Payment4 : Invalid language \x1b[0m");
     }
 
