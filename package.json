@@ -1,10 +1,10 @@
 {
   "name": "payment4",
-  "version": "1.0.0",
+  "version": "1.0.23",
   "description": "Simple typescript implementation of Payment4 nodjs api so you can use easily and fast.",
   "main": "lib/index.js",
   "scripts": {
-      "build": "tsc"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

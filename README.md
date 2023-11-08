@@ -36,13 +36,14 @@ const payment4 = Payment4(initParams);
 
 ## 📢 API
 
-### ★ Request Payment:
+### ★ Requesting a Payment:
 
 ```javascript
 /**
  * amount is required
  * callbackParams, webhookParams, webhookUrl, language are optional
- * if no language given, the language default is english
+ * if no language given, the language default is en
+ * if no currency given, the currency default is USD
  */
 const params: PaymentRequestType = {
   amount: 100,
@@ -50,6 +51,7 @@ const params: PaymentRequestType = {
   webhookParams: { "your-key": "your-value" },
   webhookUrl: "https://your-domain.com/webhook",
   language: "en",
+  currency: "USD",
 };
 /**
  * requestPayment
@@ -59,9 +61,32 @@ const params: PaymentRequestType = {
 const paymentUrl = await payment4.requestPayment(params);
 ```
 
-### ★ Payment Verification:
+### Supported languages :
+
+```bash
+  en
+  fa
+```
+
+
+### Supported currencies :
+
+```bash
+  USD  
+  EUR  
+  TRY  
+  GBP 
+  AED  
+  IRT  
+```
+
+
+### ★ Verifying a Payment :
 
 ```javascript
+
+
+
 /**
  * amount and paymentId are required
  */
@@ -79,9 +104,6 @@ const response = await payment4.verifyPayment(request);
 
 ---
 
-## 👋 Contribution
 
-Contributions are welcome. Please submit PRs or just file an issue if you see something broken or in
-need of improving.
 
 Powered by [Payment4](https://payment4.com)

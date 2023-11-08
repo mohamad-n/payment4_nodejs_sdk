@@ -5,7 +5,6 @@ import {
   PaymentRequestType,
   RequestOption,
   VerifyPaymentRequest,
-  Language,
 } from "./types";
 import { configs } from "./config";
 
@@ -39,27 +38,31 @@ export class Payment4 {
    * @throws errorCode
    */
   async requestPayment(params: PaymentRequestType): Promise<String> {
-    const { amount, callbackParams, language, webhookParams, webhookUrl } =
-      params;
+    const {
+      amount,
+      callbackParams,
+      language,
+      webhookParams,
+      webhookUrl,
+      currency,
+    } = params;
     const { callbackUrl, sandBox } = this.initParam;
 
     if (!amount) {
       throw new Error("\x1b[31m Payment4 : amount is required \x1b[0m");
     }
 
-    if (language && !Object.values(Language).includes(language as Language)) {
-      throw new Error("\x1b[31m Payment4 : Invalid language \x1b[0m");
-    }
-
     const data: CreatePaymentDto = {
       amount,
       callbackUrl,
       callbackParams,
-      language: language || Language.EN,
+      language: language || "en",
+      currency: currency || "USD",
       sandBox: sandBox || false,
       webhookParams,
       webhookUrl,
     };
+
     const option = this.makeOptions({ method: "POST", path: "payment" });
     const response = await this.makeRequest(data, option);
     const responseBody = JSON.parse(response);
