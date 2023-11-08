@@ -1,4 +1,3 @@
-import { Language } from "./language.enum";
 
 export type CreatePaymentDto = {
   amount: number;
@@ -8,6 +7,7 @@ export type CreatePaymentDto = {
   webhookParams?: object;
   callbackParams?: object;
   language?: string;
+  currency?: string;
 };
 export type PaymentRequestType = {
   amount: number;
@@ -15,6 +15,7 @@ export type PaymentRequestType = {
   webhookParams?: object;
   webhookUrl?: string;
   language?: string;
+  currency?: string;
 };
 export type RequestPaymentResponseType = {
   id: number;
