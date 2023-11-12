@@ -24,6 +24,7 @@ export type RequestPaymentResponseType = {
 
 export type VerifyPaymentRequest = {
   amount: number;
+  currency: string;
   paymentId: string;
 };
 

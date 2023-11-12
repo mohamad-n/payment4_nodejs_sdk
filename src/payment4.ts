@@ -79,8 +79,17 @@ export class Payment4 {
    * @throws errorCode
    */
   async verifyPayment(params: VerifyPaymentRequest): Promise<boolean> {
-    const { amount, paymentId: payment_id } = params;
-    const data = { amount, payment_id };
+    const { paymentId: payment_id, ...otherData } = params;
+    if (!params.amount) {
+      throw new Error("\x1b[31m Payment4 : amount is required \x1b[0m");
+    }
+    if (!params.currency) {
+      throw new Error("\x1b[31m Payment4 : currency is required \x1b[0m");
+    }
+    if (!params.paymentId) {
+      throw new Error("\x1b[31m Payment4 : paymentId is required \x1b[0m");
+    }
+    const data = { payment_id, ...otherData };
     const option = this.makeOptions({ method: "PUT", path: "payment/verify" });
     const response = await this.makeRequest(data, option);
     const responseBody = JSON.parse(response);

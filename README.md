@@ -1,21 +1,21 @@
-# PAYMENT4 OFFICIAL SDK
+# Payment4 Official SDK Documentation
 
-- Easy And Fast
-- Promises/A+ Compatible
-- Sandboxing
+- Streamlined and Efficient
+- Promises/A+ Compatibility
+- Secure Sandboxing
 
 ## 🕹 Usage
 
-Install the package from `npm` or `yarn` and require it in your Node project:
+Install the package from npm or yarn and integrate it into your Node project:
 
 ```bash
 npm install payment4
 ```
 
 ```javascript
-const Payment4 = require("payment4");
+const { Payment4 } = require("payment4")
 // or
-import Payment4 from "payment4";
+import { Payment4 } from 'payment4';
 ```
 
 ### Create Payment4 instance
@@ -26,12 +26,12 @@ import Payment4 from "payment4";
  * apiKey and callbackUrl are both required.
  * sandBox is optional.
 */
-const initParams: InitParamsType = {
-  apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-  callbackUrl: 'https://your-domain/verify';
-  sandBox: false;
+const initParams = {
+  apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  callbackUrl: 'https://your-domain/verify',
+  sandBox: false,
 };
-const payment4 = Payment4(initParams);
+const payment4 = new Payment4(initParams);
 ```
 
 ## 📢 API
@@ -45,7 +45,7 @@ const payment4 = Payment4(initParams);
  * if no language given, the language default is en
  * if no currency given, the currency default is USD
  */
-const params: PaymentRequestType = {
+const params = {
   amount: 100,
   callbackParams: { "your-key": "your-value" },
   webhookParams: { "your-key": "your-value" },
@@ -61,7 +61,7 @@ const params: PaymentRequestType = {
 const paymentUrl = await payment4.requestPayment(params);
 ```
 
-### Supported languages :
+### Supported Languages :
 
 ```bash
   en
@@ -69,7 +69,7 @@ const paymentUrl = await payment4.requestPayment(params);
 ```
 
 
-### Supported currencies :
+### Supported Currencies :
 
 ```bash
   USD  
@@ -88,11 +88,12 @@ const paymentUrl = await payment4.requestPayment(params);
 
 
 /**
- * amount and paymentId are required
+ * amount and paymentId and currency are required
  */
-const params: VerifyPaymentRequest = {
-  amount: 100,
+const params = {
   paymentId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  amount: 100,
+  currency: "USD",
 };
 /**
  * Verify Payment from PaymentId.
