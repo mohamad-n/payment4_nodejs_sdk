@@ -1,6 +1,6 @@
 {
   "name": "payment4",
-  "version": "1.0.23",
+  "version": "1.0.0",
   "description": "Simple typescript implementation of Payment4 nodjs api so you can use easily and fast.",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aliraj313/payment4_nodjs_sdk.git"
+    "url": "https://github.com/mohamad-n/payment4_nodejs_sdk"
   },
   "keywords": [
     "payment4",
@@ -18,9 +18,9 @@
   "author": "Ali Rajabi alirajabi0151@gmail.com https://github.com/aliraj313",
   "license": "",
   "bugs": {
-    "url": "https://github.com/aliraj313/payment4_nodjs_sdk/issues"
+    "url": "https://github.com/mohamad-n/payment4_nodejs_sdk/issues"
   },
-  "homepage": "https://github.com/aliraj313/payment4_nodjs_sdk#readme",
+  "homepage": "https://github.com/mohamad-n/payment4_nodejs_sdk#readme",
   "devDependencies": {
     "@types/node": "^20.8.9",
     "typescript": "^5.2.2"

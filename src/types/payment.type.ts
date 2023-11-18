@@ -1,4 +1,3 @@
-
 export type CreatePaymentDto = {
   amount: number;
   callbackUrl: string;
@@ -19,12 +18,14 @@ export type PaymentRequestType = {
 };
 export type RequestPaymentResponseType = {
   id: number;
-  refUrl: string;
+  paymentUid: string;
+  paymentUrl: string;
 };
 
 export type VerifyPaymentRequest = {
   amount: number;
-  paymentId: string;
+  currency: string;
+  paymentUid: string;
 };
 
 export type VerifyResponseType = {

@@ -62,14 +62,13 @@ export class Payment4 {
       webhookParams,
       webhookUrl,
     };
-
     const option = this.makeOptions({ method: "POST", path: "payment" });
     const response = await this.makeRequest(data, option);
     const responseBody = JSON.parse(response);
     if (responseBody.status != undefined && !responseBody.status) {
       throw responseBody.errorCode;
     }
-    return responseBody.refUrl;
+    return responseBody.paymentUrl;
   }
 
   /**
@@ -79,8 +78,17 @@ export class Payment4 {
    * @throws errorCode
    */
   async verifyPayment(params: VerifyPaymentRequest): Promise<boolean> {
-    const { amount, paymentId: payment_id } = params;
-    const data = { amount, payment_id };
+    const { paymentUid, ...otherData } = params;
+    if (!params.amount) {
+      throw new Error("\x1b[31m Payment4 : amount is required \x1b[0m");
+    }
+    if (!params.currency) {
+      throw new Error("\x1b[31m Payment4 : currency is required \x1b[0m");
+    }
+    if (!params.paymentUid) {
+      throw new Error("\x1b[31m Payment4 : paymentId is required \x1b[0m");
+    }
+    const data = { paymentUid, ...otherData };
     const option = this.makeOptions({ method: "PUT", path: "payment/verify" });
     const response = await this.makeRequest(data, option);
     const responseBody = JSON.parse(response);
