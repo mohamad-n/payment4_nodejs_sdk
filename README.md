@@ -50,8 +50,8 @@ const params = {
   callbackParams: { "your-key": "your-value" },
   webhookParams: { "your-key": "your-value" },
   webhookUrl: "https://your-domain.com/webhook",
-  language: "en",
-  currency: "USD",
+  language: "en",        //non sensitive to uppercase or lowercase
+  currency: "USD",       //non sensitive to uppercase or lowercase
 };
 /**
  * requestPayment
@@ -91,16 +91,16 @@ const paymentUrl = await payment4.requestPayment(params);
  * amount and paymentId and currency are required
  */
 const params = {
-  paymentId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  paymentUid: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   amount: 100,
-  currency: "USD",
+  currency: "USD",      //non sensitive to uppercase or lowercase
 };
 /**
  * Verify Payment from PaymentId.
  * @param  {VerifyPaymentRequest} params
  * @returns Promise<boolean>
  */
-const response = await payment4.verifyPayment(request);
+const response = await payment4.verifyPayment(params);
 ```
 
 ---
