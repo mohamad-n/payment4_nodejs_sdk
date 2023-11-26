@@ -1,4 +1,4 @@
 export const configs = {
-  baseUrl: "https://api.incryp.to/api/v1/",
+  baseUrl: "https://service.payment4.com/api/v1/",
   timeout: 30000,
 };
