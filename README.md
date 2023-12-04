@@ -42,16 +42,16 @@ const payment4 = new Payment4(initParams);
 /**
  * amount is required
  * callbackParams, webhookParams, webhookUrl, language are optional
- * if no language given, the language default is en
- * if no currency given, the currency default is USD
+ * If no language is provided, the default language is set to 'en'
+ * If no currency is provided, the default currency is set to 'USD'.
  */
 const params = {
   amount: 100,
   callbackParams: { "your-key": "your-value" },
   webhookParams: { "your-key": "your-value" },
   webhookUrl: "https://your-domain.com/webhook",
-  language: "en",        //non sensitive to uppercase or lowercase
-  currency: "USD",       //non sensitive to uppercase or lowercase
+  language: "en",        //not sensitive to uppercase or lowercase
+  currency: "USD",       //not sensitive to uppercase or lowercase
 };
 /**
  * requestPayment
@@ -93,7 +93,7 @@ const paymentUrl = await payment4.requestPayment(params);
 const params = {
   paymentUid: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   amount: 100,
-  currency: "USD",      //non sensitive to uppercase or lowercase
+  currency: "USD",      //not sensitive to uppercase or lowercase
 };
 /**
  * Verify Payment from PaymentId.
