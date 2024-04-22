@@ -4,7 +4,6 @@
   "description": "Simple typescript implementation of Payment4 nodjs api so you can use easily and fast.",
   "main": "lib/index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node src/main.ts",
     "build": "tsc"
   },
   "repository": {
@@ -26,7 +25,5 @@
     "@types/node": "^20.8.9",
     "typescript": "^5.2.2"
   },
-  "dependencies": {
-    "nodemon": "^3.0.3"
-  }
+  "dependencies": {}
 }

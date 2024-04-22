@@ -1,5 +1,4 @@
-// import { RequestOptions, request } from "https";
-import { RequestOptions, request } from "http";
+import { RequestOptions, request } from "https";
 import {
   InitParamsType,
   CreatePaymentDto,
@@ -65,8 +64,6 @@ export class Payment4 {
       webhookUrl,
       cover,
     };
-    console.log("data >>> ", data);
-
     const option = this.makeOptions({ method: "POST", path: "payment" });
     const response = await this.makeRequest(data, option);
     const responseBody = JSON.parse(response);
