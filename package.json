@@ -1,6 +1,6 @@
 {
   "name": "payment4",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Simple typescript implementation of Payment4 nodjs api so you can use easily and fast.",
   "main": "lib/index.js",
   "scripts": {
