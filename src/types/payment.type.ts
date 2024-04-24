@@ -1,3 +1,12 @@
+import { Currency, Language } from "../enums";
+import { CoverRange } from ".";
+
+export type RequestPaymentResult = {
+  id: number;
+  paymentUid: string;
+  paymentUrl: string;
+};
+
 export type CreatePaymentDto = {
   amount: number;
   callbackUrl: string;
@@ -5,31 +14,29 @@ export type CreatePaymentDto = {
   webhookUrl?: string;
   webhookParams?: object;
   callbackParams?: object;
-  language?: string;
-  currency?: string;
+  language?: Language;
+  currency?: Currency;
+  cover?: CoverRange;
 };
-export type PaymentRequestType = {
+
+export type PaymentRequestInput = {
   amount: number;
   callbackParams?: object;
   webhookParams?: object;
   webhookUrl?: string;
-  language?: string;
-  currency?: string;
-};
-export type RequestPaymentResponseType = {
-  id: number;
-  paymentUid: string;
-  paymentUrl: string;
+  language?: Language;
+  currency?: Currency;
+  cover?: CoverRange;
 };
 
-export type VerifyPaymentRequest = {
+export type VerifyPaymentInput = {
   amount: number;
   currency: string;
   paymentUid: string;
 };
 
-export type VerifyResponseType = {
-  status: string;
-  message: string;
-  errorCode: number;
+export type VerifyPaymentResult = {
+  paymentStatus: string;
+  amountDifference?: string;
+  verified: boolean;
 };

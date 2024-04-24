@@ -1,12 +1,15 @@
 import { RequestOptions, request } from "https";
 import {
-  InitParamsType,
   CreatePaymentDto,
-  PaymentRequestType,
+  InitParamsType,
   RequestOption,
-  VerifyPaymentRequest,
+  RequestPaymentResult,
+  VerifyPaymentResult,
+  VerifyPaymentInput,
+  PaymentRequestInput,
 } from "./types";
-import { configs } from "./config";
+import { configs } from ".";
+import { Currency, Language } from "./enums";
 
 /**
  * payment4_nodejs_sdk • Simple typescript implementation of Payment4 nod-js api so you can use easily and fast.
@@ -21,11 +24,13 @@ export class Payment4 {
    * @param  {InitParamsType} initParam
    */
   constructor(initParam: InitParamsType) {
-    const { apiKey, callbackUrl } = initParam;
-    if (!apiKey) {
+    if (!initParam) {
+      throw new Error("\x1b[31m Payment4 : initParam is required \x1b[0m");
+    }
+    if (!initParam.apiKey) {
       throw new Error("\x1b[31m Payment4 : need to enter apiKey \x1b[0m");
     }
-    if (!callbackUrl) {
+    if (!initParam.callbackUrl) {
       throw new Error("\x1b[31m Payment4 : need to enter callbackUrl \x1b[0m");
     }
     this.initParam = initParam;
@@ -33,11 +38,17 @@ export class Payment4 {
 
   /**
    * request new Payment from Payment4
-   * @param  {PaymentRequestType} params
-   * @returns  Promise<String>
+   * @param  {PaymentRequestInput} params
+   * @returns  Promise<RequestPaymentResult>
    * @throws errorCode
    */
-  async requestPayment(params: PaymentRequestType): Promise<String> {
+  async requestPayment(
+    params: PaymentRequestInput
+  ): Promise<RequestPaymentResult> {
+    if (!params) {
+      throw new Error("\x1b[31m Payment4 : params is required \x1b[0m");
+    }
+
     const {
       amount,
       callbackParams,
@@ -45,6 +56,7 @@ export class Payment4 {
       webhookParams,
       webhookUrl,
       currency,
+      cover,
     } = params;
     const { callbackUrl, sandBox } = this.initParam;
 
@@ -56,29 +68,34 @@ export class Payment4 {
       amount,
       callbackUrl,
       callbackParams,
-      language: language || "en",
-      currency: currency || "USD",
+      language: language || Language.EN,
+      currency: currency || Currency.USD,
       sandBox: sandBox || false,
       webhookParams,
       webhookUrl,
+      cover,
     };
     const option = this.makeOptions({ method: "POST", path: "payment" });
     const response = await this.makeRequest(data, option);
-    const responseBody = JSON.parse(response);
-    if (responseBody.status != undefined && !responseBody.status) {
-      throw responseBody.errorCode;
-    }
-    return responseBody.paymentUrl;
+    const result: RequestPaymentResult = JSON.parse(response);
+    return result;
   }
 
   /**
    * Verify payment from Payment4
-   * @param  {VerifyPaymentRequest} params
-   * @returns  Promise<boolean>
+   * @param  {VerifyPaymentInput} params
+   * @returns  Promise<VerifyPaymentResult>
    * @throws errorCode
    */
-  async verifyPayment(params: VerifyPaymentRequest): Promise<boolean> {
+  async verifyPayment(
+    params: VerifyPaymentInput
+  ): Promise<VerifyPaymentResult> {
+    if (!params) {
+      throw new Error("\x1b[31m Payment4 : params is required \x1b[0m");
+    }
+
     const { paymentUid, ...otherData } = params;
+
     if (!params.amount) {
       throw new Error("\x1b[31m Payment4 : amount is required \x1b[0m");
     }
@@ -86,16 +103,13 @@ export class Payment4 {
       throw new Error("\x1b[31m Payment4 : currency is required \x1b[0m");
     }
     if (!params.paymentUid) {
-      throw new Error("\x1b[31m Payment4 : paymentId is required \x1b[0m");
+      throw new Error("\x1b[31m Payment4 : paymentUid is required \x1b[0m");
     }
     const data = { paymentUid, ...otherData };
     const option = this.makeOptions({ method: "PUT", path: "payment/verify" });
     const response = await this.makeRequest(data, option);
-    const responseBody = JSON.parse(response);
-    if (responseBody.status != undefined && !responseBody.status) {
-      throw responseBody.errorCode;
-    }
-    return true;
+    const result: VerifyPaymentResult = JSON.parse(response);
+    return result;
   }
 
   /**

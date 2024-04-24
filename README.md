@@ -17,10 +17,12 @@ const { Payment4 } = require("payment4")
 // or
 import { Payment4 } from 'payment4';
 ```
-
+ 
 ### Create Payment4 instance
 
 ```javascript
+
+
 /**
  * Create Payment4 instance
  * apiKey and callbackUrl are both required.
@@ -39,24 +41,31 @@ const payment4 = new Payment4(initParams);
 ### ★ Requesting a Payment:
 
 ```javascript
+
+
 /**
  * amount is required
- * callbackParams, webhookParams, webhookUrl, language are optional
+ * callbackParams, webhookParams, webhookUrl, language , cover are optional
  * If no language is provided, the default language is set to 'en'
  * If no currency is provided, the default currency is set to 'USD'.
+ * Define a range around the expected payment value to allow for small fluctuations
  */
-const params = {
-  amount: 100,
-  callbackParams: { "your-key": "your-value" },
-  webhookParams: { "your-key": "your-value" },
-  webhookUrl: "https://your-domain.com/webhook",
-  language: "en",        //not sensitive to uppercase or lowercase
-  currency: "USD",       //not sensitive to uppercase or lowercase
-};
+  const params = {
+    amount: 100,
+    callbackParams: { "your-key": "your-value" },
+    webhookParams: { "your-key": "your-value" },
+    webhookUrl: "https://your-domain.com/webhook",
+    language: Language.EN, //not sensitive to uppercase or lowercase
+    currency: "USD", //not sensitive to uppercase or lowercase
+    cover: {
+      coverUp: 50, // optional
+      coverDown: 20, // optional
+    },
+  };
 /**
  * requestPayment
- * @param {PaymentRequestType} params
- * @returns Promise<String>
+ * @param {PaymentRequestInput} params
+ * @returns Promise<RequestPaymentResult>
  */
 const paymentUrl = await payment4.requestPayment(params);
 ```
@@ -64,8 +73,12 @@ const paymentUrl = await payment4.requestPayment(params);
 ### Supported Languages :
 
 ```bash
-  en
-  fa
+  EN
+  FR
+  ES
+  AR
+  TR
+  FA
 ```
 
 
@@ -97,8 +110,8 @@ const params = {
 };
 /**
  * Verify Payment from PaymentId.
- * @param  {VerifyPaymentRequest} params
- * @returns Promise<boolean>
+ * @param  {VerifyPaymentInput} params
+ * @returns Promise<VerifyPaymentResult>
  */
 const response = await payment4.verifyPayment(params);
 ```
