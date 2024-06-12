@@ -48,6 +48,7 @@ const payment4 = new Payment4(initParams);
  * callbackParams, webhookParams, webhookUrl, language , cover are optional
  * If no language is provided, the default language is set to 'en'
  * If no currency is provided, the default currency is set to 'USD'.
+ * coverType is optional. If you don't set it, it will be configured according to the gateway settings in your panel.
  * Define a range around the expected payment value to allow for small fluctuations
  */
   const params = {
@@ -56,8 +57,9 @@ const payment4 = new Payment4(initParams);
     webhookParams: { "your-key": "your-value" },
     webhookUrl: "https://your-domain.com/webhook",
     language: Language.EN, //not sensitive to uppercase or lowercase
-    currency: "USD", //not sensitive to uppercase or lowercase
+    currency: Currency.USD, //not sensitive to uppercase or lowercase
     cover: {
+      coverType: CoverType.USD //not sensitive to uppercase or lowercase
       coverUp: 50, // optional
       coverDown: 20, // optional
     },
@@ -68,6 +70,13 @@ const payment4 = new Payment4(initParams);
  * @returns Promise<RequestPaymentResult>
  */
 const paymentUrl = await payment4.requestPayment(params);
+```
+
+### Supported Cover Types :
+
+```bash
+  USD
+  PERCENTAGE
 ```
 
 ### Supported Languages :
